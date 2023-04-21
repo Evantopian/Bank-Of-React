@@ -36,17 +36,23 @@ class App extends Component {
     this.setState({ currentUser: newUser });
   };
 
+  
   calculateBalance = () => {
     const { creditList, debitList } = this.state;
-    const amounts = [...creditList, ...debitList].flatMap(
-      ({ amount }) => amount
+  
+    const totalCredits = creditList.reduce(
+      (total, credit) => total + credit.amount,
+      0
     );
-    const balance = amounts
-      .reduce((total, amount) => total + amount, 0)
-      .toFixed(2);
-    this.setState({ accountBalance: balance });
+    const totalDebits = debitList.reduce(
+      (total, debit) => total + debit.amount,
+      0
+    );
+    const accountBalance = (totalCredits - totalDebits).toFixed(2);
+  
+    this.setState({ accountBalance });
   };
-
+  
   // adding credits.
   addCredit = (description, amount) => {
     const newCredit = {
@@ -62,7 +68,7 @@ class App extends Component {
     });
   };
 
-  /*
+  
 
   // should work for debit, same structrure.
 
@@ -79,7 +85,7 @@ class App extends Component {
       this.calculateBalance();
     });
   }
-  */
+  
 
   // Create Routes and React elements to be rendered using React components
   render() {
