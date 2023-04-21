@@ -38,7 +38,7 @@ function Debits({ debits, addDebit, accountBalance }) {
       <ul>{debitsView}</ul>
       <form onSubmit={handleSubmit}>
         <input type="text" name="description" />
-        <input type="text" name="amount" />
+        <input type="number" name="amount" />
         <button type="submit">Add Debit</button>
       </form>
       <AccountBalance accountBalance={accountBalance} />

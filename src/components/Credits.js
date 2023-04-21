@@ -34,7 +34,7 @@ function Credits({ credits, addCredit, accountBalance }) {
       <ul>{creditsView}</ul>
       <form onSubmit={handleSubmit}>
         <input type="text" name="description" />
-        <input type="text" name="amount" />
+        <input type="number" name="amount" />
         <button type="submit">Add Credit</button>
       </form>
       <AccountBalance accountBalance={accountBalance} />
