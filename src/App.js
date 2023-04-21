@@ -1,9 +1,3 @@
-/*==================================================
-src/App.js
-
-This is the top-level component of the app.
-It contains the top-level state.
-==================================================*/
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -16,7 +10,6 @@ import Debits from "./components/Debits";
 
 class App extends Component {
   constructor() {
-    // Create and initialize state
     super();
     this.state = {
       accountBalance: 0.0,
@@ -29,11 +22,11 @@ class App extends Component {
     };
   }
 
-  // Update state's currentUser (userName) after "Log In" button is clicked
   mockLogIn = (logInInfo) => {
     const newUser = { ...this.state.currentUser };
     newUser.userName = logInInfo.userName;
     this.setState({ currentUser: newUser });
+    this.componentDidMount();
   };
 
 
@@ -53,7 +46,6 @@ class App extends Component {
     this.setState({ accountBalance });
   };
   
-  // adding credits.
   addCredit = (description, amount) => {
     const newCredit = {
       id: this.state.creditList.length + 1,
@@ -68,7 +60,6 @@ class App extends Component {
     });
   };
 
-  // should work for debit, same structrure.
 
   addDebit = (description, amount) => {
     const newDebit = {
@@ -113,9 +104,7 @@ class App extends Component {
     this.calculateBalance();
   }
 
-  // Create Routes and React elements to be rendered using React components
   render() {
-    // Create React elements and pass input props to components
     const HomeComponent = () => (
       <Home accountBalance={this.state.accountBalance} />
     );
@@ -144,7 +133,6 @@ class App extends Component {
     );
 
 
-    // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
       <Router basename="/bank-of-react-example-code-gh-pages">
         <div>
