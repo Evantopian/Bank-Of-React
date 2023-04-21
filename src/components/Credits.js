@@ -2,10 +2,13 @@ import { Link } from 'react-router-dom';
 import AccountBalance from './AccountBalance';
 
 function Credits({ credits, addCredit, accountBalance }) {
+  
+  // converts number to a valid format.
   const handleSubmit = (e) => {
     e.preventDefault();
     const { description, amount } = e.target.elements;
-    addCredit(description.value, Number(amount.value));
+    const roundedAmount = Number(amount.value).toFixed(2); // round to 2 decimal places
+    addCredit(description.value, Number(roundedAmount));
     e.target.reset();
   };
 
@@ -21,7 +24,7 @@ function Credits({ credits, addCredit, accountBalance }) {
       <ul>{creditsView}</ul>
       <form onSubmit={handleSubmit}>
         <input type="text" name="description" />
-        <input type="text" name="amount" pattern="[0-9]+(\.[0-9]{1,2})?" />
+        <input type="text" name="amount" />
         <button type="submit">Add Credit</button>
       </form>
       <AccountBalance accountBalance={accountBalance} />
