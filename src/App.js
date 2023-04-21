@@ -36,7 +36,7 @@ class App extends Component {
     this.setState({ currentUser: newUser });
   };
 
-  
+
   calculateBalance = () => {
     const { creditList, debitList } = this.state;
   
@@ -68,8 +68,6 @@ class App extends Component {
     });
   };
 
-  
-
   // should work for debit, same structrure.
 
   addDebit = (description, amount) => {
@@ -85,7 +83,35 @@ class App extends Component {
       this.calculateBalance();
     });
   }
+
+  async componentDidMount() {
+    const [debitList, creditList] = await Promise.all([
+      fetch('https://johnnylaicode.github.io/api/credits.json'),
+      fetch('https://johnnylaicode.github.io/api/debits.json')
+    ]);
   
+    try {
+      if (debitList.ok) {
+        this.setState({ debitList: await debitList.json() });
+      } else {
+        console.log('Response error:', debitList.status);
+      }
+    } catch (error) {
+      console.log('Fetch error:', error.message);
+    }
+  
+    try {
+      if (creditList.ok) {
+        this.setState({ creditList: await creditList.json() });
+      } else {
+        console.log('Response error:', creditList.status);
+      }
+    } catch (error) {
+      console.log('Fetch error:', error.message);
+    }
+  
+    this.calculateBalance();
+  }
 
   // Create Routes and React elements to be rendered using React components
   render() {
@@ -116,6 +142,7 @@ class App extends Component {
         accountBalance={this.state.accountBalance}
       />
     );
+
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
