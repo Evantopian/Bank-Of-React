@@ -1,33 +1,55 @@
-/*==================================================
-src/components/Debits.js
+import { Link } from "react-router-dom";
+import AccountBalance from "./AccountBalance";
 
-The Debits component contains information for Debits page view.
-Note: You need to work on this file for the Assignment.
-==================================================*/
-import {Link} from 'react-router-dom';
+function Debits(props) {
 
-const Debits = (props) => {
-  // Create the list of Debit items
-  let debitsView = () => {
-    const { debits } = props;
-    return debits.map((debit) => {  // Extract "id", "amount", "description" and "date" properties of each debits JSON array element
-      let date = debit.date.slice(0,10);
-      return <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
-    });
-  }
-  // Render the list of Debit items and a form to input new Debit item
+  /*
+    Function to handle adding a new debit transaction. Parses the 
+    input values from the form, calls the addDebit() function passed 
+    as a prop to update the parent component's state, and then resets the form.
+  */
+  const handleAddDebit = (event) => {
+    event.preventDefault();
+    const description = event.target.elements.description.value;
+    const amount = Number(event.target.elements.amount.value);
+    props.addDebit(description, amount);
+    event.target.reset();
+  };
+
+
+  /*
+    Function to map over the list of debit transactions 
+    passed as a prop and render each one as an <li> element 
+    with the transaction's details.
+  */  
+  const debits = props.debits.map((debit) => {
+    const date = debit.date.slice(0, 10);
+    return (
+      <li key={debit.id}>
+        {debit.amount} {debit.description} {date}
+      </li>
+    );
+  });
+
+
+  /*
+    The Debits component renders a list of debit transactions 
+    and a form to add a new debit. It also renders an AccountBalance 
+    component to display the current account balance, and a Link component 
+    to return to the Home page.
+  */
   return (
     <div>
       <h1>Debits</h1>
-
-      {debitsView()}
-
-      <form onSubmit={props.addDebit}>
+      <ul>{debits}</ul>
+      <form onSubmit={handleAddDebit}>
         <input type="text" name="description" />
         <input type="number" name="amount" />
         <button type="submit">Add Debit</button>
       </form>
-      <br/>
+
+      <AccountBalance accountBalance={props.accountBalance} />
+      <br />
       <Link to="/">Return to Home</Link>
     </div>
   );
