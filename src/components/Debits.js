@@ -9,28 +9,24 @@ function Debits(props) {
     as a prop to update the parent component's state, and then resets the form.
   */
   const handleAddDebit = (event) => {
-    event.preventDefault();
-    const description = event.target.elements.description.value;
-    const amount = Number(event.target.elements.amount.value);
-    props.addDebit(description, amount);
-    event.target.reset();
+     event.preventDefault();
+     const description = event.target.elements.description.value;
+     const amount = Number(event.target.elements.amount.value).toFixed(2);
+     props.addDebit(description, amount);
+     event.target.reset();
   };
-
-
+  
   /*
     Function to map over the list of debit transactions 
     passed as a prop and render each one as an <li> element 
     with the transaction's details.
   */  
-  const debits = props.debits.map((debit) => {
-    const date = debit.date.slice(0, 10);
-    return (
-      <li key={debit.id}>
-        {debit.amount} {debit.description} {date}
+    const debitsView = props.debits.map(({ id, amount, description, date }) => (
+      <li key={id}>
+        {amount} {description} {date.slice(0, 10)}
       </li>
-    );
-  });
-
+    ));
+    
 
   /*
     The Debits component renders a list of debit transactions 
@@ -41,10 +37,10 @@ function Debits(props) {
   return (
     <div>
       <h1>Debits</h1>
-      <ul>{debits}</ul>
+      <ul>{debitsView}</ul>
       <form onSubmit={handleAddDebit}>
         <input type="text" name="description" />
-        <input type="number" name="amount" />
+        <input type="text" name="amount" />
         <button type="submit">Add Debit</button>
       </form>
 

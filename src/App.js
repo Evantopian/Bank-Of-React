@@ -166,7 +166,7 @@ class App extends Component {
   
       //utilizes a Router component to manage various routes for the aforementioned components.
       return (
-        <Router basename="/bank-of-react-example-code-gh-pages">
+        <Router basename="/Bank-Of-React">
           <div>
             <Route exact path="/" render={HomeComponent} />
             <Route exact path="/userProfile" render={UserProfileComponent} />
