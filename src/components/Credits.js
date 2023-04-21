@@ -3,11 +3,10 @@ import AccountBalance from './AccountBalance';
 
 function Credits({ credits, addCredit, accountBalance }) {
   
-  // converts number to a valid format.
   const handleSubmit = (e) => {
     e.preventDefault();
     const { description, amount } = e.target.elements;
-    const roundedAmount = Number(amount.value).toFixed(2); // round to 2 decimal places
+    const roundedAmount = Number(amount.value).toFixed(2); 
     addCredit(description.value, Number(roundedAmount));
     e.target.reset();
   };

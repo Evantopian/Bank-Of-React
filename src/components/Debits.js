@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import AccountBalance from './AccountBalance';
+import { Link } from "react-router-dom";
+import AccountBalance from "./AccountBalance";
 
 function Debits(props) {
   const handleAddDebit = (event) => {
