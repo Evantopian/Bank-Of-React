@@ -3,6 +3,10 @@ import AccountBalance from './AccountBalance';
 
 function Credits({ credits, addCredit, accountBalance }) {
   
+  /* handleSubmit: Handles the submit event for the credit form by 
+    preventing the default behavior, extracting the form data, adding 
+    a new credit with the data, resetting the form, and calling the addCredit function. 
+  */
   const handleSubmit = (e) => {
     e.preventDefault();
     const { description, amount } = e.target.elements;
@@ -11,12 +15,19 @@ function Credits({ credits, addCredit, accountBalance }) {
     e.target.reset();
   };
 
+  /* creditsView: Maps the credits array into an array of <li>
+     elements with the amount, description, and date of each credit. 
+  */
   const creditsView = credits.map(({ id, amount, description, date }) => (
     <li key={id}>
       {amount} {description} {date.slice(0, 10)}
     </li>
   ));
 
+  /* Credits: The main function that renders the Credits component,
+     including the credits list, credit form, account balance, and a
+     link to return to the Home component. 
+  */
   return (
     <div>
       <h1>Credits</h1>
